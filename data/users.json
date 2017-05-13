@@ -1,0 +1,9 @@
+{
+    "users": [
+        {
+            "name": "Vader",
+            "email": "darthvader@sith.com",
+            "key": "1234"
+        }
+    ]
+}
