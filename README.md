@@ -19,4 +19,12 @@ Finalizado correctamente
 
 ### como arrancar el proyecto
 ### como inicializar la base de datos
-### etc
+
+###Visualizacion de imagenes
+Basta con acceder ahttp://localhost:3000/images/anuncios/nombrefichero.png
+
+Imágenes de los anuncios cargados con installDB:
+
+http://localhost:3000/images/anuncios/estrella.png
+http://localhost:3000/images/anuncios/sable.png
+http://localhost:3000/images/anuncios/xwing.png
