@@ -20,6 +20,10 @@ Finalizado correctamente
 ### como arrancar el proyecto
 ### como inicializar la base de datos
 
+###Registro de usuario:
+Método POST a: http://localhost:3000/apiv1/registro
+Campos: name, email y key.
+
 ###Visualizacion de imagenes
 Basta con acceder ahttp://localhost:3000/images/anuncios/nombrefichero.png
 

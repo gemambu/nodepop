@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
 
 // método save estático
 userSchema.statics.save = function(name, email, key, callback){
+    console.log('llego al save');
     const query = User.save();
     query.name(name);
     query.email(email);
