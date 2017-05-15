@@ -20,6 +20,12 @@ userSchema.statics.save = function(name, email, key, callback){
     query.exec(callback);
 };
 
+//static 
+userSchema.statics.list = function(filter, callback) {
+    const query = User.find(filter);
+    query.exec(callback);
+};
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = User;

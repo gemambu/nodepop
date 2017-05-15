@@ -1,43 +1,45 @@
 'use strict';
 
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const validate = require('../../lib/validateData');
+const secret = require('../../config/localConfig');
+const jwt = require('jsonwebtoken');
+const hash = require('hash.js');
+
 //const basicAuth = require('../../lib/basicAuth');
 
 const User = require('../../models/User');
 
 //router.use(basicAuth);
 
-// GET /apiv1/usuarios/authenticate
-router.get('/', (req, res, next) => {
-  
+/// POST /apiv1/usuarios/authenticate
+router.post('/', (req, res, next) => {
     console.log(req.body);
 
-    //TODO: validate the info, check if everything is OK
-    if(req.body.email === '' || !isValidEmail(req.body.email) || req.body.key === ''){
+    if(req.body.email === '' || !validate(req.body.email) || req.body.key === ''){
         return res.status(500).json({success: false, error: 'Some parameter is not valid'});
     } else {
-        const filter = {};
-    if(req.body.email ){
-        filter.email = req.body.email ;
-    }
+        // Buscar al usuario, si existe y la password es correcta        
+        User.findOne({email: req.body.email}).exec((err, userFound) => {
+            if(err){
+                next(err); // le decimos a express que devuelva el error
+                return;
+            }
 
+            // comprobar que la hash-key es igual a la introducida en req.body.key
+            const authKey =  hash.sha512().update(req.body.key).digest('hex');
 
-    User.list(filter, limit, skip, fields, sort, (err, users) => {
-        if(err){
-            next(err); // le decimos a express que devuelva el error
-            return;
-        }
-
-        res.json({success: true, result: 'usuario válido'});
-
-    });
+            if(authKey === userFound.key){
+               // crear un token
+                var token = jwt.sign({id: userFound._id}, secret.jwt.secret, {expiresIn: '2days'});
+                res.json({success: true, result: {message: 'Login correct', userToken: token}}); 
+            } else {
+                return res.status(401).json({success: false, error: 'Password is not correct'});
+            }
+        });
     }
 });
-
-function isValidEmail(email){
-    return /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email);
-}
 
 module.exports = router;
