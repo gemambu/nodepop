@@ -9,7 +9,7 @@
         },
         {
             "name": "XWing",
-            "sale": true,
+            "sale": false,
             "price": 45821.45,
             "photo": "xwing.png",
             "tags": ["motor", "alliance"]
