@@ -11,7 +11,7 @@ const Notice = require('../../models/Notice');
 
 /* GET /apiv1/agentes */
 router.get('/', function(req, res, next) {
-    const name = new RegExp('^'+ req.query.nombre, 'i');
+    const name = req.query.nombre;
     const sale = req.query.venta;
     const price = req.query.precio;
     const tag = req.query.tag;
@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
     // creamos el filtro vacio
     const filter = {};
     if(name){
-        filter.name = name;
+        filter.name = new RegExp('^'+ name.toLowerCase(), 'i');
     }
     if(tag){
         filter.tags = tag.toLowerCase();
@@ -54,7 +54,7 @@ router.get('/', function(req, res, next) {
             filter.price = { '$gte': LimitGreater , '$lte': limitLess  };
         }
     }
-     console.log(filter);
+    console.log(filter);
 
     Notice.list(filter, limit, skip, fields, sort, (err, notices) => {
         if(err){
@@ -62,7 +62,7 @@ router.get('/', function(req, res, next) {
             return;
         }
         if(includeTotal === 'true'){
-            res.json({success: true, number: notices.length, result: notices});
+            res.json({success: true, total: notices.length, result: notices});
         } else {
             res.json({success: true, result: notices});    
         }

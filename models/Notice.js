@@ -10,6 +10,7 @@ const noticeSchema = mongoose.Schema({
     photo: String,
     tags:[String]
 });
+noticeSchema.index({name: 'text', price: 1, tags: "text"});
 
 //static 
 noticeSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
@@ -18,7 +19,6 @@ noticeSchema.statics.list = function(filter, limit, skip, fields, sort, callback
     query.skip(skip);
     query.select(fields); // {nombreCampo: 1, campoquenoquiero: 0}
     query.sort(sort);
-
     query.exec(callback);
 };
 

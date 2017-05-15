@@ -28,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/notices'));
+app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 app.use('/apiv1/registro', require('./routes/apiv1/register'));
 app.use('/apiv1/usuarios/authenticate', require('./routes/apiv1/auth'));
 

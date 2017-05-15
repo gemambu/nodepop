@@ -4,21 +4,21 @@
             "name": "Sable láser",
             "sale": true,
             "price": 5000.52,
-            "photo": "sable.png",
+            "photo": "/images/anuncios/sable.png",
             "tags": [ "lifestyle", "alliance"]
         },
         {
             "name": "XWing",
             "sale": false,
             "price": 45821.45,
-            "photo": "xwing.png",
+            "photo": "/images/anuncios/xwing.png",
             "tags": ["motor", "alliance"]
         },
         {
             "name": "Estrella de la Muerte",
             "sale": true,
             "price": 15000000.00,
-            "photo": "estrella.png",
+            "photo": "/images/anuncios/estrella.png",
             "tags": [ "deathstyle", "motor"]
         }
     ]

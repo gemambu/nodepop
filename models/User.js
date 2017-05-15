@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     email: String,
     key: String
 });
+userSchema.index({email: 'text'});
 
 // método save estático
 userSchema.statics.save = function(name, email, key, callback){
