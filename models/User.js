@@ -23,6 +23,7 @@ userSchema.statics.save = function(name, email, key, callback){
 //static 
 userSchema.statics.list = function(filter, callback) {
     const query = User.find(filter);
+    query.select({_id: 0, __v: 0});
     query.exec(callback);
 };
 
