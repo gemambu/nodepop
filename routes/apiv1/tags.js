@@ -6,7 +6,7 @@ var router = express.Router();
 const Notice = require('../../models/Notice');
 
 // GET: /apiv1/tags: Get all the tags from database
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     Notice.list({}, null,null, 'tags', null, (err, result) => {
         if(err){
             next(err); // le decimos a express que devuelva el error
