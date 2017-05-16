@@ -4,21 +4,15 @@
 const express = require('express');
 const router = express.Router();
 const validate = require('../../lib/validateData');
-const secret = require('../../config/localConfig');
-const jwt = require('jsonwebtoken');
-const hash = require('hash.js');
-
-//const basicAuth = require('../../lib/basicAuth');
+const authenticate = require('../../lib/authentication');
 
 const User = require('../../models/User');
-
-//router.use(basicAuth);
 
 /// POST /apiv1/usuarios/authenticate
 router.post('/', (req, res, next) => {
     console.log(req.body);
 
-    if(req.body.email === '' || !validate(req.body.email) || req.body.key === ''){
+    if(req.body.email === '' || !validate.isValidEmail(req.body.email) || req.body.key === ''){
         return res.status(500).json({success: false, error: 'Some parameter is not valid'});
     } else {
         // Buscar al usuario, si existe y la password es correcta        
@@ -29,11 +23,12 @@ router.post('/', (req, res, next) => {
             }
 
             // comprobar que la hash-key es igual a la introducida en req.body.key
-            const authKey =  hash.sha512().update(req.body.key).digest('hex');
+            const authKey =  authenticate.getHash(req.body.key);
 
             if(authKey === userFound.key){
                // crear un token
-                var token = jwt.sign({id: userFound._id}, secret.jwt.secret, {expiresIn: '2days'});
+                //var token = jwt.sign({id: userFound._id}, secret.jwt.secret, {expiresIn: '2days'});
+                var token = authenticate.sign(userFound._id);
                 res.json({success: true, result: {message: 'Login correct', userToken: token}}); 
             } else {
                 return res.status(401).json({success: false, error: 'Password is not correct'});

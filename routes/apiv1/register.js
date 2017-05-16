@@ -2,26 +2,24 @@
 
 const express = require('express');
 const router = express.Router();
-const hash = require('hash.js');
 const validate = require('../../lib/validateData');
-//const basicAuth = require('../../lib/basicAuth');
-
+const authenticate = require('../../lib/authentication');
 
 const User = require('../../models/User');
 
-//router.use(basicAuth);
 
 // POST /apiv1/registro
 router.post('/', (req, res, next) => {
   
     console.log(req.body);
 
-    if(req.body.name === '' || req.body.email === '' || !validate(req.body.email) || req.body.key === ''){
+    if(req.body.name === '' || !validate.isValidEmail(req.body.email) || req.body.key === ''){
         return res.status(500).json({success: false, error: 'Some parameter is not valid'});
     } else {
         // creamos un objecto de tipo Usuario con la peticion mandada
         const user = new User(req.body);
-        user.key = hash.sha512().update(req.body.key).digest('hex');
+        //user.key = hash.sha512().update(req.body.key).digest('hex');
+        user.key = authenticate.getHash(req.body.key);
 
         // lo guardamos en la BD
         user.save((err, newUser) => {
@@ -33,9 +31,5 @@ router.post('/', (req, res, next) => {
         });
     }
 });
-
-function isValidEmail(email){
-    return /^\w+([\.\+\-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/.test(email);
-}
 
 module.exports = router;

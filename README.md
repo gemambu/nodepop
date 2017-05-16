@@ -22,7 +22,10 @@ Finalizado correctamente
 
 ###Registro de usuario:
 Método POST a: http://localhost:3000/apiv1/registro
+with x-www-form-urlencoded
 Campos: name, email y key.
+
+// test123 -> 
 
 ##RUTAS
 
@@ -30,6 +33,8 @@ Campos: name, email y key.
 /apiv1/tags GET
 /apiv1/registro: POST
 /apiv1/usuarios/authenticate POST
+/apiv1/anuncios/nuevo POST
+    campos: name, price, sale, photo, tags
 
 ###Visualizacion de imagenes
 Basta con acceder a http://localhost:3000/images/anuncios/nombrefichero.png
