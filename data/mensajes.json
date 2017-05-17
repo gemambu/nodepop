@@ -1,0 +1,19 @@
+{
+    "ES": 
+        {
+            "getAuthTokenNeeded": "Este método necesita token de autenticación",
+            "failAuthenticatingToken": "El token de autenticación no es válido",
+            "someParameterNotValid": "Alguno de los parámetros introducidos no es válido",
+            "userCreatedOK": "Usuario creado correctamente"
+        }
+    ,
+    "EN": 
+        {
+            "getAuthTokenNeeded": "This method needs authentication token",
+            "failAuthenticatingToken": "The authentication token is not valid",
+            "someParameterNotValid": "Some parameter is not valid",
+            "userCreatedOK": "User created successfully"
+        }
+
+    
+}

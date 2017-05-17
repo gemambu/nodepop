@@ -3,18 +3,18 @@
 const mongoose = require('mongoose');
 
 // Schema
-const noticeSchema = mongoose.Schema({
+const anuncioSchema = mongoose.Schema({
     name: String,
     sale: Boolean,
     price: Number,
     photo: String,
     tags:[String]
 });
-noticeSchema.index({name: 'text', price: 1, tags: "text"});
+anuncioSchema.index({name: 'text', price: 1, tags: "text"});
 
 //static 
-noticeSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
-    const query = Notice.find(filter);
+anuncioSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
+    const query = Anuncio.find(filter);
     query.limit(limit);
     query.skip(skip);
     query.select(fields); // {nombreCampo: 1, campoquenoquiero: 0}
@@ -23,7 +23,7 @@ noticeSchema.statics.list = function(filter, limit, skip, fields, sort, callback
 };
 
 // Model
-var Notice = mongoose.model('Notice', noticeSchema);
+var Anuncio = mongoose.model('Anuncio', anuncioSchema);
 
 // Export the model
-module.exports = Notice;
+module.exports = Anuncio;

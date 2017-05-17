@@ -6,7 +6,7 @@ const router = express.Router();
 const validate = require('../../lib/validateData');
 const authenticate = require('../../lib/authentication');
 
-const User = require('../../models/User');
+const Usuario = require('../../models/Usuario');
 
 /// POST /apiv1/usuarios/authenticate
 router.post('/', (req, res, next) => {
@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
         return res.status(500).json({success: false, error: 'Some parameter is not valid'});
     } else {
         // Buscar al usuario, si existe y la password es correcta        
-        User.findOne({email: req.body.email}).exec((err, userFound) => {
+        Usuario.findOne({email: req.body.email}).exec((err, usuarioEncontrado) => {
             if(err){
                 next(err); // le decimos a express que devuelva el error
                 return;
@@ -25,11 +25,11 @@ router.post('/', (req, res, next) => {
             // comprobar que la hash-key es igual a la introducida en req.body.key
             const authKey =  authenticate.getHash(req.body.key);
 
-            if(authKey === userFound.key){
+            if(authKey === usuarioEncontrado.key){
                // crear un token
                 //var token = jwt.sign({id: userFound._id}, secret.jwt.secret, {expiresIn: '2days'});
-                var token = authenticate.sign(userFound._id);
-                res.json({success: true, result: {message: 'Login correct', userToken: token}}); 
+                var token = authenticate.sign(usuarioEncontrado._id);
+                res.json({success: true, result: {message: 'Login correct', tokenUsuario: token}}); 
             } else {
                 return res.status(401).json({success: false, error: 'Password is not correct'});
             }

@@ -46,3 +46,6 @@ http://localhost:3000/images/anuncios/sable.png
 http://localhost:3000/images/anuncios/xwing.png
 
 Pulsar sobre el enlace en postman, cargara la imagen en una nueva pestaña
+
+## Idioma
+El idioma se define con el parámetro lang, que se manda en la query string. Si no viene, asumimos por defecto que el idioma es español

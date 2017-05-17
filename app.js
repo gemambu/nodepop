@@ -1,18 +1,18 @@
 'use strict';
 
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const path = require('path');
 // let favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // Establecemos la conexión de base de datos
 require('./lib/connectMongoose');
-require('./models/Notice');
-require('./models/User');
+require('./models/Anuncio');
+require('./models/Usuario');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,14 +26,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/apiv1/anuncios', require('./routes/apiv1/notices'));
+app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 app.use('/apiv1/registro', require('./routes/apiv1/register'));
 app.use('/apiv1/usuarios/authenticate', require('./routes/apiv1/auth'));
 
 app.use('/images/anuncios',
   express.static(path.join(__dirname, 'public/images')));
-// app.use('/users', userequire('./routes/users'));
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
