@@ -15,8 +15,8 @@ router.post('/', (req, res, next) => {
     console.log(req.body);
 
     if(req.body.name === '' || !validate.isValidEmail(req.body.email) || req.body.key === ''){
-        var errorMessage = customMessages.getError(req.query.lang, 'someParameterNotValid');
-        return res.status(500).json({success: false, error: errorMessage});
+        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
+        return res.status(500).json({success: false, message: errorMessage});
     } else {
         // creamos un objecto de tipo Usuario con la peticion mandada
         const usuario = new Usuario(req.body);
@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
                 next(err);
                 return;
             }
-            var messageOK = customMessages.getMessage(req.query.lang, 'userCreatedOK');
+            var messageOK = customMessages.getMessage(req.query.lang, 'USER_SAVED_OK');
             res.json({success: true, result: { message: messageOK, username: nuevoUsuario.email}});
         });
     }

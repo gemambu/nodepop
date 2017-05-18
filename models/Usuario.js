@@ -16,7 +16,6 @@ usuarioSchema.statics.save = function(name, email, key, callback){
     query.name(name);
     query.email(email);
     query.key(key);
-
     query.exec(callback);
 };
 

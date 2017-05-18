@@ -24,12 +24,10 @@ router.post('/', (req, res, next) => {
 
             // comprobar que la hash-key es igual a la introducida en req.body.key
             const authKey =  authenticate.getHash(req.body.key);
-
             if(authKey === usuarioEncontrado.key){
                // crear un token
-                //var token = jwt.sign({id: userFound._id}, secret.jwt.secret, {expiresIn: '2days'});
-                var token = authenticate.sign(usuarioEncontrado._id);
-                res.json({success: true, result: {message: 'Login correct', tokenUsuario: token}}); 
+                var tokenUsuario = authenticate.sign(usuarioEncontrado._id);
+                res.json({success: true, result: {message: 'Login correct', token: tokenUsuario}}); 
             } else {
                 return res.status(401).json({success: false, error: 'Password is not correct'});
             }

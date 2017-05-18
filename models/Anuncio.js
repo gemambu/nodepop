@@ -10,14 +10,14 @@ const anuncioSchema = mongoose.Schema({
     photo: String,
     tags:[String]
 });
-anuncioSchema.index({name: 'text', price: 1, tags: "text"});
+anuncioSchema.index({name: 'text', price: 1, tags: 'text'});
 
 //static 
 anuncioSchema.statics.list = function(filter, limit, skip, fields, sort, callback) {
     const query = Anuncio.find(filter);
     query.limit(limit);
     query.skip(skip);
-    query.select(fields); // {nombreCampo: 1, campoquenoquiero: 0}
+    query.select(fields); 
     query.sort(sort);
     query.exec(callback);
 };

@@ -13,8 +13,8 @@ router.get('/', (req, res, next) => {
 
     const token = req.query.token;
     if(!token){
-        var errorMessage = customMessages.getError(req.query.lang, 'getAuthTokenNeeded');
-        res.json({success: false, result: errorMessage});    
+        var errorMessage = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+        res.json({ok: false, error : {code: 401, message: errorMessage}});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -65,31 +65,35 @@ function completeSearch(req, res){
         }
     }
 
-    if(includeTotal.toLowerCase() === 'true'){
-        Anuncio.count(callback, (err, countTotal) => {
+    var totalAnuncios = 0;
+    var getCount = new Promise((resolve, reject) => {
+        if(includeTotal.toLowerCase() === 'true'){
+            Anuncio.count((err, countTotal) => {
+                if(err){
+                    res.json({success: false,  result: err});
+                    reject();
+                }
+                totalAnuncios = countTotal;
+            });
+        }
+    });
+
+    getCount.then(
+        Anuncio.list(filter, limit, skip, fields, sort, (err, anuncios) => {
             if(err){
-                res.json({success: false,  result: err});
+                res.json({success: false,  error: {code: 500, message: err}});
                 return;
             }
+            if(includeTotal === 'true'){
+                res.json({success: true, total: totalAnuncios, result: anuncios});
+            } else {
+                res.json({success: true, result: anuncios});    
+            }
 
-            callback(countTotal);
-        });
-    }
-
-    Anuncio.list(filter, limit, skip, fields, sort, (err, anuncios) => {
-        if(err){
-            //next(err); // le decimos a express que devuelva el error
-            res.json({success: false,  result: err});
-            return;
-        }
-        if(includeTotal === 'true'){
-            res.json({success: true, total: anuncios.length, result: anuncios});
-        } else {
-            res.json({success: true, result: anuncios});    
-        }
-
-    });
+        })
+    );    
 }
+
 
 // POST: añadir nuevo Anuncio
 router.post('/nuevo', (req, res, next) => {
@@ -101,23 +105,22 @@ router.post('/nuevo', (req, res, next) => {
         req.body.price === ''|| 
         req.body.photo === ''|| 
         req.body.tags === '' || !validate.isValidTags(req.body.tags)){
-        var errorMessage = customMessages.getError(req.query.lang, 'someParameterNotValid');
+        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(500).json({success: false, error: errorMessage});
     } else {
-
         const token = req.query.token;
         if(!token){
-            var errorMessage = customMessages.getError(req.query.lang, 'getAuthTokenNeeded');
-            res.json({success: false, result: errorMessage});    
+            var errorMessage = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+            res.status(401).json({success: false, message: errorMessage});    
         } else {
             // check if token is correct
-            authenticate.verify(token, req, completeSave);
+            authenticate.verify(token, req, res, completeSave);
         }        
     }
 });
 
+
 function completeSave(req, res) {
-    // comprobar si ya existe un anuncio con el mismo nombre
     req.body.photo = '/images/anuncios/' + req.body.photo;
     req.body.tags = validate.removeSpaces(req.body.tags);
 
@@ -130,8 +133,9 @@ function completeSave(req, res) {
             next(err);
             return;
         }
-        res.json({success: true, result: nuevoAnuncio});
-    });
+        var messageOK = customMessages.getMessage(req.query.lang, 'NOTICE_SAVED_OK');
+        res.json({success: true, message: messageOK, result: nuevoAnuncio});
+    });    
 }
 
 module.exports = router;

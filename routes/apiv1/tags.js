@@ -13,12 +13,12 @@ router.get('/', (req, res, next) => {
     // This method needs authentication. Check token parameter
     const token = req.query.token;
     if(token === undefined){
-        var error = customMessages.getError(req.query.lang, 'getAuthTokenNeeded');
-        res.json({success: false, result: error});  
+        var error = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+        res.status(401).json({success: false, message: error});  
     }
     if(!token){
-        var error = customMessages.getError(req.query.lang, 'failAuthenticatingToken');
-        res.json({success: false, result: error});    
+        var error = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
+        res.status(401).json({success: false, result: error});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
 function completeSearch(req, res){
     Anuncio.list({}, null,null, 'tags', null, (err, result) => {
         if(err){
-            next(err); // le decimos a express que devuelva el error
+            next(err); 
             return;
         }
 
