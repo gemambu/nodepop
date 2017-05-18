@@ -10,7 +10,6 @@ const Anuncio = require('../../models/Anuncio');
 
 /* GET /apiv1/agentes */
 router.get('/', (req, res, next) => {
-
     const token = req.query.token;
     if(!token){
         var errorMessage = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
@@ -110,8 +109,8 @@ router.post('/nuevo', (req, res, next) => {
     } else {
         const token = req.query.token;
         if(!token){
-            var errorMessage = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-            res.status(401).json({success: false, message: errorMessage});    
+            var errorAuth = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+            res.status(401).json({success: false, message: errorAuth});    
         } else {
             // check if token is correct
             authenticate.verify(token, req, res, completeSave);
@@ -130,7 +129,7 @@ function completeSave(req, res) {
     // lo guardamos en la BD
     anuncio.save((err, nuevoAnuncio) => {
         if (err){                    
-            next(err);
+            res.status(500).json({success: false,  message: err});
             return;
         }
         var messageOK = customMessages.getMessage(req.query.lang, 'NOTICE_SAVED_OK');

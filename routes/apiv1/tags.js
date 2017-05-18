@@ -13,12 +13,12 @@ router.get('/', (req, res, next) => {
     // This method needs authentication. Check token parameter
     const token = req.query.token;
     if(token === undefined){
-        var error = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-        res.status(401).json({success: false, message: error});  
+        var errorUndefined = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+        res.status(401).json({success: false, message: errorUndefined});  
     }
     if(!token){
-        var error = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
-        res.status(401).json({success: false, result: error});    
+        var errorToken = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
+        res.status(401).json({success: false, result: errorToken});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -28,7 +28,7 @@ router.get('/', (req, res, next) => {
 function completeSearch(req, res){
     Anuncio.list({}, null,null, 'tags', null, (err, result) => {
         if(err){
-            next(err); 
+            res.status(500).json({success: false,  message: err});
             return;
         }
 
