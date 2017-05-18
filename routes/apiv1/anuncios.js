@@ -29,13 +29,13 @@ function completeSearch(req, res){
     const tag = req.query.tag;
     const limit = parseInt(req.query.limit);
     const skip = parseInt(req.query.start);
-    // TODO modificar la opcion de campos a mostrar
-    //const fields = req.query.fields;
+    const fields = (req.query.fields !== undefined) ? req.query.fields : {_id: 0, __v: 0};
     const sort = req.query.sort;
     const includeTotal = req.query.includeTotal ? req.query.includeTotal : 'true';
 
     // creamos el filtro vacio
     const filter = {};
+
     if(name){
         filter.name = new RegExp('^'+ name.toLowerCase(), 'i');
     }
@@ -46,8 +46,6 @@ function completeSearch(req, res){
         filter.sale = sale.toLowerCase();
     }
     if(price){
-        console.log(price.indexOf('-'));
-        console.log(price.length);
         if(price.indexOf('-') === -1){ // the price filter is exact price
             filter.price = parseInt(price);
         }
@@ -67,9 +65,21 @@ function completeSearch(req, res){
         }
     }
 
-    Anuncio.list(filter, limit, skip, {_id: 0, __v: 0}, sort, (err, anuncios) => {
+    if(includeTotal.toLowerCase() === 'true'){
+        Anuncio.count(callback, (err, countTotal) => {
+            if(err){
+                res.json({success: false,  result: err});
+                return;
+            }
+
+            callback(countTotal);
+        });
+    }
+
+    Anuncio.list(filter, limit, skip, fields, sort, (err, anuncios) => {
         if(err){
-            next(err); // le decimos a express que devuelva el error
+            //next(err); // le decimos a express que devuelva el error
+            res.json({success: false,  result: err});
             return;
         }
         if(includeTotal === 'true'){
