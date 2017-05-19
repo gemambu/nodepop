@@ -116,7 +116,7 @@ router.post('/nuevo', (req, res, next) => {
 
 });
 
-function checkFields(req, res, callback){
+function checkFields(req, res){
     console.log(req.query.lang);
      //TODO: validate the info, check if everything is OK
     if(req.body.name === '' || req.body.name === undefined ||
