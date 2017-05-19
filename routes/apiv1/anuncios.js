@@ -83,12 +83,18 @@ function completeSearch(req, res){
                 res.json({success: false,  error: {code: 500, message: err}});
                 return;
             }
-            if(includeTotal === 'true'){
-                res.json({success: true, total: totalAnuncios, result: anuncios});
-            } else {
-                res.json({success: true, result: anuncios});    
-            }
 
+            // Si el filtro no devuelve resultados, notificamos con un mensaje
+            if(anuncios.length === 0){
+                var warningMessage = customMessages.getMessage(req.query.lang, 'FILTER_WITH_NO_RESULTS');
+                res.json({success: true, code: 204, message: warningMessage, result: anuncios});
+            } else {
+                if(includeTotal === 'true'){
+                    res.status(200).json({success: true, totalPublished: totalAnuncios, result: anuncios});
+                } else {
+                    res.status(200).json({success: true, result: anuncios});    
+                }
+            }
         })
     );    
 }
@@ -98,43 +104,47 @@ function completeSearch(req, res){
 router.post('/nuevo', (req, res, next) => {
     console.log(req.body);
 
-    //TODO: validate the info, check if everything is OK
-    if(req.body.name === '' || 
-        req.body.sale === '' || 
-        req.body.price === ''|| 
-        req.body.photo === ''|| 
-        req.body.tags === '' || !validate.isValidTags(req.body.tags)){
-        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
-        return res.status(500).json({success: false, error: errorMessage});
-    } else {
-        const token = req.query.token;
+    const token = req.query.token;
         if(!token){
             var errorAuth = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
             res.status(401).json({success: false, message: errorAuth});    
         } else {
             // check if token is correct
-            authenticate.verify(token, req, res, completeSave);
-        }        
-    }
+            //authenticate.verify(token, req, res, completeSave);
+            authenticate.verify(token, req, res, checkFields);
+        }  
+
 });
 
+function checkFields(req, res, callback){
+    console.log(req.query.lang);
+     //TODO: validate the info, check if everything is OK
+    if(req.body.name === '' || req.body.name === undefined ||
+        req.body.sale === '' || req.body.sale === undefined ||
+        req.body.price === ''|| req.body.price === undefined || 
+        req.body.photo === ''|| req.body.photo === undefined ||
+        req.body.tags === '' || req.body.tags === undefined ||
+        !validate.checkTags(req.body.tags)){
+        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
+        return res.status(500).json({success: false, error: errorMessage});
+    } else{
+        req.body.photo = '/images/anuncios/' + req.body.photo;
+        req.body.tags = validate.removeSpaces(req.body.tags);
 
-function completeSave(req, res) {
-    req.body.photo = '/images/anuncios/' + req.body.photo;
-    req.body.tags = validate.removeSpaces(req.body.tags);
+        // creamos un objecto de tipo Usuario con la peticion mandada
+        const anuncio = new Anuncio(req.body);
 
-    // creamos un objecto de tipo Usuario con la peticion mandada
-    const anuncio = new Anuncio(req.body);
-
-    // lo guardamos en la BD
-    anuncio.save((err, nuevoAnuncio) => {
-        if (err){                    
-            res.status(500).json({success: false,  message: err});
-            return;
-        }
-        var messageOK = customMessages.getMessage(req.query.lang, 'NOTICE_SAVED_OK');
-        res.json({success: true, message: messageOK, result: nuevoAnuncio});
-    });    
+        // lo guardamos en la BD
+        anuncio.save((err, nuevoAnuncio) => {
+            if (err){                    
+                res.status(500).json({success: false,  message: err});
+                return;
+            }
+            var messageOK = customMessages.getMessage(req.query.lang, 'NOTICE_SAVED_OK');
+            res.json({success: true, message: messageOK, result: nuevoAnuncio});
+        });    
+    }
 }
+
 
 module.exports = router;

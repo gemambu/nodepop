@@ -6,7 +6,8 @@
             "PARAMETER_NOT_VALID": "Alguno de los parámetros introducidos no es válido",
             "USER_SAVED_OK": "Usuario creado correctamente",
             "NOTICE_ALREADY_IN_DB": "Ya existe un anuncio con ese nombre",
-            "NOTICE_SAVED_OK": "Anuncio insertado correctamente"
+            "NOTICE_SAVED_OK": "Anuncio insertado correctamente",
+            "FILTER_WITH_NO_RESULTS": "La búsqueda no ha devuelto resultados"
         },
     "EN": 
         {
@@ -15,6 +16,7 @@
             "PARAMETER_NOT_VALID": "Some of the parameters entered are not valid",
             "USER_SAVED_OK": "User created successfully",
             "NOTICE_ALREADY_IN_DB":"A notice with that name already exists",
-            "NOTICE_SAVED_OK": "Notice saved successfully"
+            "NOTICE_SAVED_OK": "Notice saved successfully",
+            "FILTER_WITH_NO_RESULTS": "Search returned no results"
         }
 }

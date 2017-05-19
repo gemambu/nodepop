@@ -14,7 +14,11 @@ router.post('/', (req, res, next) => {
   
     console.log(req.body);
 
-    if(req.body.name === '' || !validate.isValidEmail(req.body.email) || req.body.key === ''){
+    if(req.body.name === undefined || req.body.name === '' ||
+        req.body.email === undefined || req.body.email === '' || 
+        !validate.isValidEmail(req.body.email) || 
+        req.body.key === undefined || req.body.key === ''){
+
         var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(500).json({success: false, message: errorMessage});
     } else {
@@ -29,7 +33,7 @@ router.post('/', (req, res, next) => {
                 return;
             }
             var messageOK = customMessages.getMessage(req.query.lang, 'USER_SAVED_OK');
-            res.json({success: true, result: { message: messageOK, username: nuevoUsuario.email}});
+            res.status(200).json({success: true, result: { message: messageOK, username: nuevoUsuario.email}});
         });
     }
 });
