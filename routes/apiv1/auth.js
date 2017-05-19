@@ -16,7 +16,7 @@ router.post('/', (req, res, next) => {
     if(req.body.email === '' || req.body.email === undefined || 
     !validate.isValidEmail(req.body.email) || 
     req.body.key === undefined || req.body.key === ''){
-        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
+        var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(500).json({success: false, error: errorMessage});
     } else {
         // Buscar al usuario, si existe y la password es correcta        

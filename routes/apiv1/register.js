@@ -10,8 +10,7 @@ const Usuario = require('../../models/Usuario');
 
 
 // POST /apiv1/registro
-router.post('/', (req, res, next) => {
-  
+router.post('/', (req, res, next) => {  
     console.log(req.body);
 
     if(req.body.name === undefined || req.body.name === '' ||
@@ -19,7 +18,7 @@ router.post('/', (req, res, next) => {
         !validate.isValidEmail(req.body.email) || 
         req.body.key === undefined || req.body.key === ''){
 
-        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
+        var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(500).json({success: false, message: errorMessage});
     } else {
         // creamos un objecto de tipo Usuario con la peticion mandada

@@ -7,17 +7,18 @@ const customMessages = require('../../lib/customMessages');
 
 const Anuncio = require('../../models/Anuncio');
 
-// GET: /apiv1/tags: Obtenemos las etiquetas de la base de datos
+// GET: /apiv1/tags
 router.get('/', (req, res, next) => {
-    // This method needs authentication. Check token parameter
+
+    
     const token = req.query.token;
     if(token === undefined){
-        var errorUndefined = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+        var errorUndefined = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
         res.json({success: false, code: 401, message: errorUndefined});  
         return;
     }
     if(!token){
-        var errorToken = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
+        var errorToken = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
         res.json({success: false, code: 401, result: errorToken});    
     } else {
         // check if token is correct

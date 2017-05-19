@@ -12,7 +12,7 @@ const Anuncio = require('../../models/Anuncio');
 router.get('/', (req, res, next) => {
     const token = req.query.token;
     if(!token){
-        var errorMessage = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+        var errorMessage = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
         res.json({ok: false, error : {code: 401, message: errorMessage}});    
     } else {
         // check if token is correct
@@ -100,13 +100,13 @@ function completeSearch(req, res){
 }
 
 
-// POST: añadir nuevo Anuncio
+// POST: /apiv1/anuncios/nuevo
 router.post('/nuevo', (req, res, next) => {
     console.log(req.body);
 
     const token = req.query.token;
         if(!token){
-            var errorAuth = customMessages.getError(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
+            var errorAuth = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
             res.status(401).json({success: false, message: errorAuth});    
         } else {
             // check if token is correct
@@ -125,7 +125,7 @@ function checkFields(req, res){
         req.body.photo === ''|| req.body.photo === undefined ||
         req.body.tags === '' || req.body.tags === undefined ||
         !validate.checkTags(req.body.tags)){
-        var errorMessage = customMessages.getError(req.query.lang, 'PARAMETER_NOT_VALID');
+        var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(500).json({success: false, error: errorMessage});
     } else{
         req.body.photo = '/images/anuncios/' + req.body.photo;
