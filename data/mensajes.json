@@ -7,7 +7,9 @@
             "USER_SAVED_OK": "Usuario creado correctamente",
             "NOTICE_ALREADY_IN_DB": "Ya existe un anuncio con ese nombre",
             "NOTICE_SAVED_OK": "Anuncio insertado correctamente",
-            "FILTER_WITH_NO_RESULTS": "La búsqueda no ha devuelto resultados"
+            "FILTER_WITH_NO_RESULTS": "La búsqueda no ha devuelto resultados",
+            "LOGIN_OK": "Login correcto",
+            "PASSWORD_NOT_OK": "La contraseña no es correcta"
         },
     "EN": 
         {
@@ -17,6 +19,8 @@
             "USER_SAVED_OK": "User created successfully",
             "NOTICE_ALREADY_IN_DB":"A notice with that name already exists",
             "NOTICE_SAVED_OK": "Notice saved successfully",
-            "FILTER_WITH_NO_RESULTS": "Search returned no results"
+            "FILTER_WITH_NO_RESULTS": "Search returned no results",
+            "LOGIN_OK": "Login success",
+            "PASSWORD_NOT_OK": "The password is not valid"
         }
 }
