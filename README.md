@@ -1,6 +1,6 @@
 # Nodepop
 
-###API para aplicación Nodepop. Práctica JS/Node.js/MongoDB Boot V.
+## API para aplicación Nodepop. Práctica JS/Node.js/MongoDB Boot V.
 
 API para la venta de artículos de segunda mano.
 
