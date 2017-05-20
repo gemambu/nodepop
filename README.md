@@ -58,7 +58,7 @@ Esta API tiene dos posibles modos de arranque:
 	Ejecutar: ```npm start```
 
 
-- Arranque debug: Se arranca en modo depuración en el puerto 4000.
+- Arranque debug: Se arranca en modo depuración en el puerto 5000.
 
 	Ejecutar: ```npm run dev```
 
