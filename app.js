@@ -26,11 +26,11 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
-app.use('/apiv1/tags', require('./routes/apiv1/tags'));
+app.use('/', require('./routes/index'));
 app.use('/apiv1/registro', require('./routes/apiv1/register'));
 app.use('/apiv1/usuarios/authenticate', require('./routes/apiv1/auth'));
-
+app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 app.use('/images/anuncios',
   express.static(path.join(__dirname, 'public/images')));
 

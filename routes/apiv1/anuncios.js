@@ -8,7 +8,7 @@ const customMessages = require('../../lib/customMessages');
 
 const Anuncio = require('../../models/Anuncio');
 
-/* GET /apiv1/agentes */
+/* GET /apiv1/anuncios */
 router.get('/', (req, res, next) => {
     const token = req.query.token;
     if(!token){
