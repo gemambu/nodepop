@@ -65,13 +65,13 @@ Esta API tiene dos posibles modos de arranque:
 
 ## Rutas
 
-Una vez arrancado el servidor ya podemos comenzar a trabajar con la API. A continuación se definen las operaciones disponibles.
+Una vez arrancado el servidor ya podemos comenzar a trabajar con el API. A continuación se definen las operaciones disponibles.
 
 ### Index
 
 
 ### Registro de usuario
-Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones de la API.
+Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones del API.
 
 - URL: /apiv1/registro
 - Método: POST

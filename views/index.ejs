@@ -1,11 +1,325 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+  <h1 id="nodepop">Nodepop</h1>
+<h2 id="api-para-aplicacion-nodepop.-practica-jsnode.jsmongodb-boot-v.">API para aplicación Nodepop. Práctica JS/Node.js/MongoDB Boot V.</h2>
+<p>API para la venta de artículos de segunda mano.</p>
+<p>Esta API está disponible en español e inglés para su correcta interpretación de mensajes y errores. Se especifica con el parámetro <strong>lang=EN</strong> / <strong>lang=ES</strong>. Por defecto, el idioma seleccionado es español, pero los tags son devueltos en inglés.</p>
+<p>En la versión 1 de esta API los usuarios deben estar registrados para poder hacer uso de ella. La autenticación se ha basado en JSON Web Token.</p>
+<p>Base de datos utilizada: <strong>MONGODB</strong>. Se ha utilizado el módulo <strong>mongoose</strong> para la gestión de los modelos de base de datos.</p>
+<h2 id="como-instalar">Cómo instalar</h2>
+<p>Descargar el proyecto:</p>
+<p><code>git clone http://github.com/gemambu/nodepop.git</code></p>
+<p>e instalarlo:</p>
+<p><code>cd nodepop</code></p>
+<p><code>npm install</code></p>
+<p>Instalar base de datos:</p>
+<p><code>npm run installDB</code></p>
+<p>Si todo funciona correctamente, se mostrarán los siguientes mensajes:</p>
+<pre><code>&gt; nodepop@0.0.0 installDB /Users/user/nodepop
+&gt; node ./lib/install_db.js
+
+conexion establecida
+Base de datos eliminada
+Anuncios insertados correctamente.
+Usuarios insertados correctamente.
+Cerramos base de datos
+</code></pre>
+<p>Con esta instalación se añaden varios anuncios para su visualización y un usuario ya registrado para poder acceder a toda la información:</p>
+<pre><code>nombre: Vader
+email: darthvader@sith.com
+contrasela: &quot;1234&quot;
+</code></pre>
+<h2 id="como-arrancar-el-servicio">Cómo arrancar el servicio</h2>
+<p>Esta API tiene dos posibles modos de arranque:</p>
+<ul>
+<li><p>Arranque normal: Se arranca en el puerto 3000.</p>
+<p>Ejecutar: <code>npm start</code></p></li>
+<li><p>Arranque debug: Se arranca en modo depuración en el puerto 5000.</p>
+<p>Ejecutar: <code>npm run dev</code></p></li>
+</ul>
+<h2 id="rutas">Rutas</h2>
+<p>Una vez arrancado el servidor ya podemos comenzar a trabajar con el API. A continuación se definen las operaciones disponibles.</p>
+<h3 id="index">Index</h3>
+<p>Índice del API. Mismo contenido README en html.</p>
+<h3 id="registro-de-usuario">Registro de usuario</h3>
+<p>Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones del API.</p>
+<ul>
+<li>URL: /apiv1/registro</li>
+<li>Método: POST</li>
+<li>Formulario: x-www-form-urlencoded</li>
+<li>URL params:
+<ul>
+<li>Opcional:<br />
+<code>lang=[ES/EN]</code><br />
+Ejemplo: <em>lang=EN</em></li>
+</ul></li>
+<li>Body params:
+<ul>
+<li>Obligatorios:
+<ul>
+<li><code>name: [string]</code>Ejemplo: <em>name: Mi Nombre</em></li>
+<li><code>email: [string]</code>Ejemplo: <em>email: <a href="mailto:minombre@gmail.com">minombre@gmail.com</a></em></li>
+<li><code>key: [alphanumeric]</code>Ejemplo: <em>key: apassw0rd</em></li>
+</ul></li>
+</ul></li>
+<li><p>Respuesta correcta:</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;result&quot;: {
+    &quot;message&quot;: &quot;Usuario creado correctamente&quot;,
+    &quot;username&quot;: &quot;minombre@gmail.com&quot;
+  }
+}</code></pre></li>
+<li><p>Respuesta error:</p>
+<p><strong>Código:</strong> 500</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;Alguno de los parámetros introducidos no es válido&quot;
+}</code></pre></li>
+</ul>
+<h3 id="autenticacion">Autenticación</h3>
+<p>Un usuario registrado debe autenticarse en el servicio para obtener el token de seguridad que le permite acceder a todas las funcionalidades disponibles. Sin esta autenticación, el API no devolverá información.</p>
+<ul>
+<li>URL: /apiv1/usuarios/authenticate</li>
+<li>Método: POST</li>
+<li>Formulario: x-www-form-urlencoded</li>
+<li>URL params:
+<ul>
+<li>Opcional:<br />
+<code>lang=[ES/EN]</code><br />
+Ejemplo: <em>lang=EN</em></li>
+</ul></li>
+<li>Body params:
+<ul>
+<li>Obligatorios:
+<ul>
+<li><code>email: [string]</code>Ejemplo: <em>email: <a href="mailto:minombre@gmail.com">minombre@gmail.com</a></em></li>
+<li><code>key: [alphanumeric]</code>Ejemplo: <em>key: apassw0rd</em></li>
+</ul></li>
+</ul></li>
+<li><p>Respuesta correcta:</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;result&quot;: {
+    &quot;message&quot;: &quot;Login correcto&quot;,
+    &quot;token&quot;: &quot;eyJhbGciOiJIUzI1Ni...fgCH33nJhZ-tgxo&quot;
+  }
+}</code></pre></li>
+<li><p>Respuesta error:</p>
+<p><strong>Código:</strong> 500</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;error&quot;: &quot;Alguno de los parámetros introducidos no es válido&quot;
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;error&quot;: &quot;La contraseña no es correcta&quot;
+}</code></pre></li>
+</ul>
+<h3 id="obtener-tags">Obtener tags</h3>
+<p>Esta operación permite obtener los tags existentes en base de datos.</p>
+<ul>
+<li>URL: /apiv1/tags</li>
+<li>Método: GET</li>
+<li>URL params:
+<ul>
+<li><p>Obligatorio:<br />
+<code>token=[alphanumerico]</code></p>
+<p>Ejemplo: <em>token =asdf12385</em></p></li>
+<li><p>Opcional:<br />
+<code>lang=[ES/EN]</code></p>
+Ejemplo: <em>lang=EN</em></li>
+</ul></li>
+<li><p>Body params: No aplica</p></li>
+<li><p>Respuesta correcta:</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;tags&quot;: [
+    &quot;lifestyle&quot;,
+    &quot;mobile&quot;,
+    &quot;motor&quot;,
+    &quot;work&quot;
+  ]
+}</code></pre></li>
+<li><p>Respuesta error:</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;Este método necesita token de autenticación&quot;
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;El token de autenticación no es válido&quot;
+}</code></pre></li>
+</ul>
+<h3 id="obtener-anuncios">Obtener anuncios</h3>
+<p>Esta operación permite obtener los anuncios publicados en nodepop. Se pueden aplicar diferentes filtros, paginados y ordenación.</p>
+<ul>
+<li>URL: /apiv1/anuncios</li>
+<li>Método: GET</li>
+<li>URL params:
+<ul>
+<li><p>Obligatorio:<br />
+<code>token=[alphanumerico]</code></p>
+<p>Ejemplo: <em>token =asdf12385</em></p></li>
+<li><p>Opcional:</p>
+<ul>
+<li><p><code>lang=[ES/EN]</code></p>
+<p>Ejemplo: <em>lang=EN</em></p></li>
+</ul>
+<p><strong>Filtros:</strong></p>
+<ul>
+<li><p>Por nombre de anuncio: <code>nombre=[string]</code></p>
+<p>Ejemplo: <em>nombre=Es</em></p></li>
+<li><p>Por precio: <code>precio=[numero]</code></p>
+<ul>
+<li><p>Ejemplo: <em>precio=50</em> (Devuelve los anuncios con precio exacto: 50)</p></li>
+<li><p>Ejemplo: <em>precio=50-</em> (Devuelve los anuncios con precio mayor o igual a: 50)</p></li>
+<li><p>Ejemplo: <em>precio=-50</em> (Devuelve los anuncios con precio menor o igual a: 50)</p></li>
+<li><p>Ejemplo: <em>precio=50-100</em> (Devuelve los anuncios con precio incluido entre: 50 y 100)</p></li>
+</ul></li>
+<li><p>Por venta o búsqueda: <code>venta=[true/false]</code></p>
+<p>Ejemplo: <em>venta=true</em></p></li>
+<li><p>Por tags del anuncio. Opciones: <em>work, lifestyle, motor y mobile</em>: <code>tag=[string]</code></p>
+<p>Ejemplo: <em>tag=mobile</em></p></li>
+<li><p>Inicio de visualización: <code>start=[numero]</code></p>
+<p>Ejemplo: <em>start=1</em></p></li>
+<li><p>Límite de anuncios a mostrar: <code>limit=[numero]</code></p>
+<p>Ejemplo: <em>limit=5</em></p></li>
+<li><p>Ordenación de la lista por un campo. Opciones: <em>nombre, precio, venta, photo, tags</em>: <code>sort=[nombre]</code></p>
+<p>Ejemplo: <em>sort=precio</em></p></li>
+<li><p>Mostrar el total de anuncios en base de datos: <code>includeTotal=[true/false]</code></p>
+<p>Ejemplo: <em>includeTotal=false</em></p></li>
+</ul></li>
+</ul></li>
+<li><p>Body params: No aplica</p></li>
+<li><p>Respuesta correcta:</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;totalPublished&quot;: 7,
+  &quot;result&quot;: [
+    {
+      &quot;_id&quot;: &quot;592026419d37d7921a299d97&quot;,
+      &quot;name&quot;: &quot;Traje Stormtrooper&quot;,
+      &quot;price&quot;: 1000,
+      &quot;tags&quot;: [
+        &quot;lifestyle&quot;,
+        &quot;work&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;message&quot;: &quot;La búsqueda no ha devuelto resultados&quot;,
+  &quot;result&quot;: []
+}</code></pre></li>
+<li><p>Respuesta error:</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;Este método necesita token de autenticación&quot;
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;El token de autenticación no es válido&quot;
+}</code></pre></li>
+</ul>
+<h5 id="visualizacion-de-imagenes">Visualizacion de imagenes</h5>
+<p>Basta con acceder a <a href="http://localhost:3000/images/anuncios/*nombrefichero*.png" class="uri">http://localhost:3000/images/anuncios/*nombrefichero*.png</a></p>
+<h3 id="insertar-anuncio">Insertar anuncio</h3>
+<p>Esta operación permite insertar un anuncio en nodepop.</p>
+<ul>
+<li>URL: /apiv1/anuncios/nuevo</li>
+<li>Método: POST</li>
+<li>Formulario: x-www-form-urlencoded</li>
+<li>URL params:
+<ul>
+<li><p>Obligatorio:<br />
+<code>token=[alphanumerico]</code></p>
+<p>Ejemplo: <em>token=asdf12385</em></p></li>
+<li><p>Opcional:</p>
+<ul>
+<li><p><code>lang=[ES/EN]</code></p>
+<p>Ejemplo: <em>lang=EN</em></p></li>
+</ul></li>
+</ul></li>
+<li><p>Body params:</p>
+<ul>
+<li><p>Nombre del anuncio: <code>name:[string]</code></p>
+<p>Ejemplo: <code>name: Gafas Neo</code></p></li>
+<li><p>Precio del artículo: <code>price=[numerico]</code></p>
+<p>Ejemplo: <code>price: 1230</code></p></li>
+<li><p>Artículo para búsqueda o venta: <code>sale: [true/false]</code></p>
+<p>Ejemplo: <code>sale: true</code></p></li>
+<li><p>Foto del artículo: <code>photo: [alphanumeric]</code></p>
+<p>Ejemplo: <code>photo: neo_glassess.png</code></p></li>
+<li><p>Tags del anuncio. Opciones: Opciones: <em>work, lifestyle, motor y mobile</em> : <code>tags: [string]</code></p>
+<p>Ejemplo: <code>tags: lifestyle,work</code></p></li>
+</ul></li>
+<li><p>Respuesta correcta:</p>
+<p><strong>Código:</strong> 200</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: true,
+  &quot;message&quot;: &quot;Anuncio insertado correctamente&quot;,
+  &quot;result&quot;: {
+    &quot;__v&quot;: 0,
+    &quot;name&quot;: &quot;Gafas Neo&quot;,
+    &quot;sale&quot;: true,
+    &quot;price&quot;: 1230,
+    &quot;photo&quot;: &quot;/images/anuncios/neo_glassess.png&quot;,
+    &quot;_id&quot;: &quot;59207cb5135e499ad28220b9&quot;,
+    &quot;tags&quot;: [
+      &quot;lifestyle&quot;,
+      &quot;work&quot;
+    ]
+  }
+}</code></pre></li>
+<li><p>Respuesta error:</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;Este método necesita token de autenticación&quot;
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 401</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;message&quot;: &quot;El token de autenticación no es válido&quot;
+}</code></pre>
+<p>OR</p>
+<p><strong>Código:</strong> 500</p>
+<p><strong>Contenido:</strong></p>
+<pre><code>{
+  &quot;success&quot;: false,
+  &quot;error&quot;: &quot;Alguno de los parámetros introducidos no es válido&quot;
+}</code></pre></li>
+</ul>
 </html>
