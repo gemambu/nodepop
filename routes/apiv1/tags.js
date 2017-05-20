@@ -10,16 +10,16 @@ const Anuncio = require('../../models/Anuncio');
 // GET: /apiv1/tags
 router.get('/', (req, res, next) => {
 
-    
+
     const token = req.query.token;
     if(token === undefined){
         var errorUndefined = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-        res.json({success: false, code: 401, message: errorUndefined});  
+        res.json({success: false, message: errorUndefined});  
         return;
     }
     if(!token){
         var errorToken = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
-        res.json({success: false, code: 401, result: errorToken});    
+        res.json({success: false, result: errorToken});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -44,7 +44,7 @@ function completeSearch(req, res){
                 });
             }
         }
-        res.json({success: true, tags: tagsInDB});    
+        res.status(200).json({success: true, tags: tagsInDB});    
     });
 }
 

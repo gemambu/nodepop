@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
     const token = req.query.token;
     if(!token){
         var errorMessage = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-        res.json({ok: false, error : {code: 401, message: errorMessage}});    
+        res.json({ok: false, message: errorMessage});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -80,14 +80,15 @@ function completeSearch(req, res){
     getCount.then(
         Anuncio.list(filter, limit, skip, fields, sort, (err, anuncios) => {
             if(err){
-                res.json({success: false,  error: {code: 500, message: err}});
+                res.json({success: false,  message: err});
                 return;
             }
 
             // Si el filtro no devuelve resultados, notificamos con un mensaje
             if(anuncios.length === 0){
+                console.log('llego aqui');
                 var warningMessage = customMessages.getMessage(req.query.lang, 'FILTER_WITH_NO_RESULTS');
-                res.json({success: true, code: 204, message: warningMessage, result: anuncios});
+                res.status(200).json({success: true, message: warningMessage, result: anuncios});
             } else {
                 if(includeTotal === 'true'){
                     res.status(200).json({success: true, totalPublished: totalAnuncios, result: anuncios});
