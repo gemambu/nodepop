@@ -84,3 +84,8 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Code analysis
+.jshintrc
+.eslintrc.js
+
