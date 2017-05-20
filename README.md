@@ -69,6 +69,7 @@ Una vez arrancado el servidor ya podemos comenzar a trabajar con el API. A conti
 
 ### Index
 
+Índice del API. Mismo contenido README en html.
 
 ### Registro de usuario
 Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones del API.

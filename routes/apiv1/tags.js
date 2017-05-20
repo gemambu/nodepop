@@ -14,12 +14,12 @@ router.get('/', (req, res, next) => {
     const token = req.query.token;
     if(token === undefined){
         var errorUndefined = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-        res.json({success: false, message: errorUndefined});  
+        res.status(401).json({success: false, message: errorUndefined});  
         return;
     }
     if(!token){
         var errorToken = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
-        res.json({success: false, result: errorToken});    
+        res.status(401).json({success: false, result: errorToken});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);

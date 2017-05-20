@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
     const token = req.query.token;
     if(!token){
         var errorMessage = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_INCLUDED');
-        res.json({ok: false, message: errorMessage});    
+        res.status(401).json({ok: false, message: errorMessage});    
     } else {
         // check if token is correct
         authenticate.verify(token, req, res, completeSearch);
@@ -26,11 +26,11 @@ function completeSearch(req, res){
     const sale = req.query.venta;
     const price = req.query.precio;
     const tag = req.query.tag;
-    const limit = parseInt(req.query.limit);
-    const skip = parseInt(req.query.start);
-    const fields = (req.query.fields !== undefined) ? req.query.fields : {_id: 0, __v: 0};
     const sort = req.query.sort;
     const includeTotal = req.query.includeTotal ? req.query.includeTotal : 'true';
+    const fields = (req.query.fields !== undefined) ? req.query.fields : {_id: 0, __v: 0};
+    const limit = (req.query.limit !== undefined) ? parseInt(req.query.limit) : 0;
+    const skip = (req.query.start !== undefined) ? parseInt(req.query.start) : 0;
 
     // creamos el filtro vacio
     const filter = {};
@@ -69,7 +69,7 @@ function completeSearch(req, res){
         if(includeTotal.toLowerCase() === 'true'){
             Anuncio.count((err, countTotal) => {
                 if(err){
-                    res.json({success: false,  result: err});
+                    res.status(500).json({success: false,  result: err});
                     reject();
                 }
                 totalAnuncios = countTotal;
@@ -80,7 +80,7 @@ function completeSearch(req, res){
     getCount.then(
         Anuncio.list(filter, limit, skip, fields, sort, (err, anuncios) => {
             if(err){
-                res.json({success: false,  message: err});
+                res.status(500).json({success: false,  message: err});
                 return;
             }
 
@@ -142,7 +142,7 @@ function checkFields(req, res){
                 return;
             }
             var messageOK = customMessages.getMessage(req.query.lang, 'NOTICE_SAVED_OK');
-            res.json({success: true, message: messageOK, result: nuevoAnuncio});
+            res.status(200).json({success: true, message: messageOK, result: nuevoAnuncio});
         });    
     }
 }

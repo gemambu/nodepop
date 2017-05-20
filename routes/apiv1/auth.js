@@ -32,7 +32,7 @@ router.post('/', (req, res, next) => {
                // crear un token
                 var tokenUsuario = authenticate.sign(usuarioEncontrado._id);
                 var loginMessage = customMessages.getMessage(req.query.lang, 'LOGIN_OK');
-                res.json({success: true, result: {message: loginMessage, token: tokenUsuario}}); 
+                res.status(200).json({success: true, result: {message: loginMessage, token: tokenUsuario}}); 
             } else {
                  var loginError = customMessages.getMessage(req.query.lang, 'PASSWORD_NOT_OK');
                 return res.status(401).json({success: false, error: loginError});
