@@ -1,0 +1,343 @@
+{
+    "name": "Nodepop APIs",
+    "version": "1.0",
+    "title": "Nodepop API",
+    "description": "API para aplicación nodepop. Práctica JS/Node.js/MongoDB Boot V.",
+    "protocol": "rest",
+    "basePath": "http://localhost:5000",
+    "publicPath": "/apiv1",
+    "auth": {
+    },
+    "schemas": {
+            "register": {
+                        "properties": {
+                            "method": {
+                                "default": "register",
+                                "description": "Method name.",
+                                "required": true,
+                                "title": "method",
+                                "type": "string"
+                            }
+                        }
+                    },
+            "auth": {
+                    "properties": {
+                        "method": {
+                            "default": "auth",
+                            "description": "Method name.",
+                            "required": true,
+                            "title": "method",
+                            "type": "string"
+                        }
+                    }
+                },
+            "getTags": {
+                    "properties": {
+                        "method": {
+                            "default": "getTags",
+                            "description": "Method name.",
+                            "required": true,
+                            "title": "method",
+                            "type": "string"
+                        }
+                    }
+                },
+            "getAnuncios": {
+                    "properties": {
+                        "method": {
+                            "default": "getAnuncios",
+                            "description": "Method name.",
+                            "required": true,
+                            "title": "method",
+                            "type": "string"
+                        }
+                    }
+                },
+            "postAnuncio": {
+                "properties": {
+                    "method": {
+                        "default": "postAnuncio",
+                        "description": "Method name.",
+                        "required": true,
+                        "title": "method",
+                        "type": "string"
+                    }
+                }
+            }
+            },
+
+         "resources": {
+             "REGISTRO": {
+                    "methods": {
+                     "register": {
+                        "description": "Registro de un usuario",
+                        "httpMethod": "POST",
+                        "name": "register",
+                        "parameters": {
+                            "lang": {
+                                "default": "es",
+                                "description": "Idioma",
+                                "required": false,
+                                "title": "lang",
+                                "type": "string",
+                                "location": "path"
+                            },
+                            "name": {
+                                "default": "",
+                                "description": "Nombre de usuario",
+                                "required": true,
+                                "title": "name",
+                                "type": "string",
+                                "location": "body"
+                            },
+                            "email": {
+                                "default": "",
+                                "description": "Email de usuario",
+                                "required": true,
+                                "title": "email",
+                                "type": "string",
+                                "location": "body"
+                            },
+                            "key": {
+                                "default": "",
+                                "description": "Constraseña",
+                                "required": true,
+                                "title": "key",
+                                "type": "string",
+                                "location": "body"
+                            }
+                        },
+                        "path": "/registro"
+                    }                
+                }
+            } ,
+            "AUTENTICACION": {
+                "methods": {
+                    "auth": {
+                        "description": "Autenticacion de un usuario",
+                        "httpMethod": "POST",
+                        "name": "auth",
+                        "parameters": {
+                            "lang": {
+                                "default": "es",
+                                "description": "Idioma",
+                                "required": false,
+                                "title": "lang",
+                                "type": "string",
+                                "location": "path"
+                            },
+                            "email": {
+                                "default": "",
+                                "description": "Email de usuario",
+                                "required": true,
+                                "title": "email",
+                                "type": "string",
+                                "location": "body"
+                            },
+                            "key": {
+                                "default": "",
+                                "description": "Constraseña",
+                                "required": true,
+                                "title": "key",
+                                "type": "string",
+                                "location": "body"
+                            }
+                        },
+                        "path": "/usuarios/authenticate"
+                    }  
+                }
+            },
+            "TAGS": {
+                "methods": {
+                     "getTags": {
+                        "description": "Obtiene los tags de la base de datos",
+                        "httpMethod": "GET",
+                        "name": "getTags",
+                        "parameters": {
+                            "token": {
+                                "default": "",
+                                "description": "JWT access token",
+                                "required": true,
+                                "title": "token",
+                                "type": "string",
+                                "location": "path"
+                            },
+                            "lang": {
+                                "default": "es",
+                                "description": "Idioma",
+                                "required": false,
+                                "title": "lang",
+                                "type": "string",
+                                "location": "path"
+                            }
+                        },
+                        "path": "/tags"
+                    }
+                }
+            },
+            "ANUNCIOS": {
+                "methods": {
+                     "getAnuncios": {
+                        "description": "Obtiene los anuncios de la base de datos",
+                        "httpMethod": "GET",
+                        "name": "getAnuncios",
+                        "parameters": {
+                            "token": {
+                                "default": "",
+                                "description": "JWT access token",
+                                "required": true,
+                                "location":"path",
+                                "title": "token",
+                                "type": "string"
+                            },
+                            "lang": {
+                                "default": "es",
+                                "description": "Idioma",
+                                "required": false,
+                                "title": "lang",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "nombre": {
+                                "default": "",
+                                "description": "Filtro por nombre",
+                                "required": false,
+                                "title": "nombre",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "tag": {
+                                "default": "",
+                                "description": "Filtro por tags",
+                                "required": false,
+                                "title": "tag",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "precio": {
+                                "default": "0",
+                                "description": "Filtro por precio",
+                                "required": false,
+                                "title": "precio",
+                                "type": "integer",
+                                "location":"path"
+                            },
+                            "venta": {
+                                "default": "true",
+                                "description": "Filtro por venta",
+                                "required": false,
+                                "title": "venta",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "limit": {
+                                "default": "0",
+                                "description": "Límite de anuncios mostrados",
+                                "required": false,
+                                "title": "limit",
+                                "type": "integer",
+                                "location":"path"
+                            },
+                            "start": {
+                                "default": "0",
+                                "description": "Paginado, saltarse n elementos",
+                                "required": false,
+                                "title": "start",
+                                "type": "integer",
+                                "location":"path"
+                            },
+                            "fields": {
+                                "default": "",
+                                "description": "Campos a mostrar para cada anuncio",
+                                "required": false,
+                                "title": "fields",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "sort": {
+                                "default": "",
+                                "description": "Campo de ordenación",
+                                "required": false,
+                                "title": "sort",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "includeTotal": {
+                                "default": "true",
+                                "description": "Flag para indicar si se incluye el numero total de anuncios en BD",
+                                "required": false,
+                                "title": "includeTotal",
+                                "type": "string",
+                                "location":"path"
+                            }
+                        },
+                        "path": "/anuncios"
+                    },
+                    "postAnuncio": {
+                        "description": "Inserta un anuncio en base de datos",
+                        "httpMethod": "POST",
+                        "name": "postAnuncio",
+                        "parameters": {
+                            "token": {
+                                "default": "",
+                                "description": "JWT access token",
+                                "required": true,
+                                "title": "token",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "lang": {
+                                "default": "es",
+                                "description": "Idioma",
+                                "required": false,
+                                "title": "lang",
+                                "type": "string",
+                                "location":"path"
+                            },
+                            "name": {
+                                "default": "",
+                                "description": "Nombre del anuncio",
+                                "required": true,
+                                "title": "name",
+                                "type": "string",
+                                "location":"body"
+                            },
+                            "price": {
+                                "default": "",
+                                "description": "Precio del anuncio",
+                                "required": true,
+                                "title": "price",
+                                "type": "integer",
+                                "location":"body"
+                            },
+                            "sale": {
+                                "default": "",
+                                "description": "Flag para indicar si el anuncio está en venta",
+                                "required": true,
+                                "title": "sale",
+                                "type": "string",
+                                "location":"body"
+                            },
+                            "photo": {
+                                "default": "",
+                                "description": "Foto para el articulo",
+                                "required": true,
+                                "title": "photo",
+                                "type": "string",
+                                "location":"body"
+                            },
+                            "tags": {
+                                "default": "",
+                                "description": "Tags a aplicar. Tags disponibles: work, lifestyle, motor, mobile",
+                                "required": true,
+                                "title": "tags",
+                                "type": "string",
+                                "location":"body"
+                            }
+                        },
+                        "path": "/anuncios/nuevo"
+                    }
+                }
+            }   
+        }
+    }

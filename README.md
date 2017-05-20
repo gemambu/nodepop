@@ -53,15 +53,24 @@ contrasela: "1234"
 
 Esta API tiene dos posibles modos de arranque:
 
-- Arranque normal: Se arranca en el puerto 3000.
+- Arranque producción: Se arranca en el puerto 3000.
 
 	Ejecutar: ```npm start```
 
 
-- Arranque debug: Se arranca en modo depuración en el puerto 5000.
+- Arranque debug: Se arranca en modo depuración en el puerto 5000. 
 
 	Ejecutar: ```npm run dev```
 
+## Cómo utilizar el API:
+
+- Iodocs: Se ejecuta en el puerto 4000. Es necesario tener instalado redis (puerto 6379). Para utilizar esta herramienta, el servidor debe estar arrancado en modo debug (puerto 5000).
+
+	Abrir una nueva consola y ejecutar: ```npm run iodocs```
+
+	Abrir navegador web y acceder a: http://localhost:4000/
+
+- Postman: Aplicación postman, se puede utilizar con el servidor en modo debug o modo producción.
 
 ## Rutas
 
