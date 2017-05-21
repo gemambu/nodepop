@@ -127,7 +127,7 @@ function checkFields(req, res){
         req.body.tags === '' || req.body.tags === undefined ||
         !validate.checkTags(req.body.tags)){
         var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
-        return res.status(500).json({success: false, error: errorMessage});
+        return res.status(401).json({success: false, error: errorMessage});
     } else{
         req.body.photo = '/images/anuncios/' + req.body.photo;
         req.body.tags = validate.removeSpaces(req.body.tags);

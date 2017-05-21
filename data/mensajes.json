@@ -9,7 +9,8 @@
             "NOTICE_SAVED_OK": "Anuncio insertado correctamente",
             "FILTER_WITH_NO_RESULTS": "La búsqueda no ha devuelto resultados",
             "LOGIN_OK": "Login correcto",
-            "PASSWORD_NOT_OK": "La contraseña no es correcta"
+            "PASSWORD_NOT_OK": "La contraseña no es correcta",
+            "USER_NOT_FOUND": "Usuario no encontrado"
         },
     "EN": 
         {
@@ -21,6 +22,7 @@
             "NOTICE_SAVED_OK": "Notice saved successfully",
             "FILTER_WITH_NO_RESULTS": "Search returned no results",
             "LOGIN_OK": "Login success",
-            "PASSWORD_NOT_OK": "The password is not valid"
+            "PASSWORD_NOT_OK": "The password is not valid",
+            "USER_NOT_FOUND": "User not found"
         }
 }

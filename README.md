@@ -98,7 +98,7 @@ Con este método se registra un nuevo usuario en la base de datos para poder acc
 		- ```key: [alphanumeric]```Ejemplo: *key: apassw0rd*
 - Respuesta correcta:
 
-	**Código:** 200
+	**Código:** 200 OK
 	
 	**Contenido:**
 	
@@ -114,7 +114,7 @@ Con este método se registra un nuevo usuario en la base de datos para poder acc
 
 - Respuesta error:
 
-	**Código:** 500
+	**Código:** 403 Forbidden
 	
 	**Contenido:**
 	
@@ -143,7 +143,7 @@ Un usuario registrado debe autenticarse en el servicio para obtener el token de 
 - Respuesta correcta:
 
 
-	**Código:** 200
+	**Código:** 200 OK
 	
 	**Contenido:**
 	
@@ -160,7 +160,7 @@ Un usuario registrado debe autenticarse en el servicio para obtener el token de 
 - Respuesta error:
 
 
-	**Código:** 500
+	**Código:** 403 Forbidden
 	
 	**Contenido:**
 
@@ -171,8 +171,20 @@ Un usuario registrado debe autenticarse en el servicio para obtener el token de 
 	}
 	```
 	OR
+
+	**Código:** 401 Unauthorized
 	
-	**Código:** 401
+	**Contenido:**
+
+	```
+	{
+		"success": false,
+		"error": "Usuario no encontrado"
+	}
+	```
+	OR
+	
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 	
@@ -205,7 +217,7 @@ Esta operación permite obtener los tags existentes en base de datos.
 - Respuesta correcta:
 
 
-	**Código:** 200
+	**Código:** 200 OK
 	
 	**Contenido:**
 	
@@ -224,7 +236,7 @@ Esta operación permite obtener los tags existentes en base de datos.
 - Respuesta error:
 
 
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 
@@ -236,7 +248,7 @@ Esta operación permite obtener los tags existentes en base de datos.
 	```
 	OR
 	
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 	
@@ -310,7 +322,7 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 - Respuesta correcta:
 
 
-	**Código:** 200
+	**Código:**  200 OK
 	
 	**Contenido:**
 	
@@ -334,7 +346,7 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 	
 	OR
 
-	**Código:** 200
+	**Código:** 200 OK
 	
 	**Contenido:**
 	
@@ -349,7 +361,7 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 - Respuesta error:
 
 
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 
@@ -361,7 +373,7 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 	```
 	OR
 	
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 	
@@ -419,7 +431,7 @@ Esta operación permite insertar un anuncio en nodepop.
 - Respuesta correcta:
 
 
-	**Código:** 200
+	**Código:**  200 OK
 	
 	**Contenido:**
 	
@@ -445,7 +457,7 @@ Esta operación permite insertar un anuncio en nodepop.
 - Respuesta error:
 
 
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 
@@ -457,7 +469,7 @@ Esta operación permite insertar un anuncio en nodepop.
 	```
 	OR
 	
-	**Código:** 401
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 	
@@ -470,7 +482,7 @@ Esta operación permite insertar un anuncio en nodepop.
 
 	OR
 	
-	**Código:** 500
+	**Código:** 401 Unauthorized
 	
 	**Contenido:**
 	

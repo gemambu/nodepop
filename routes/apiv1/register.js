@@ -19,7 +19,7 @@ router.post('/', (req, res, next) => {
         req.body.key === undefined || req.body.key === ''){
 
         var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
-        return res.status(500).json({success: false, message: errorMessage});
+        return res.status(403).json({success: false, message: errorMessage});
     } else {
         // creamos un objecto de tipo Usuario con la peticion mandada
         const usuario = new Usuario(req.body);
