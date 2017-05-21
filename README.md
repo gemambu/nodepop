@@ -4,7 +4,7 @@
 
 API para la venta de artículos de segunda mano.
 
-Esta API está disponible en español e inglés para su correcta interpretación de mensajes y errores. Se especifica con el parámetro **lang=EN** / **lang=ES**. Por defecto, el idioma seleccionado es español, pero los tags son devueltos en inglés.
+El API está disponible en español e inglés para su correcta interpretación de mensajes y errores. Se especifica con el parámetro **lang=EN** / **lang=ES**. Por defecto, el idioma seleccionado es español, pero los tags son devueltos en inglés.
 
 En la versión 1 de esta API los usuarios deben estar registrados para poder hacer uso de ella. La autenticación se ha basado en JSON Web Token.
 
@@ -45,13 +45,13 @@ Con esta instalación se añaden varios anuncios para su visualización y un usu
 ```
 nombre: Vader
 email: darthvader@sith.com
-contrasela: "1234"
+contrasela: 1234
 
 ```
 
 ## Cómo arrancar el servicio
 
-Esta API tiene dos posibles modos de arranque:
+El API tiene dos posibles modos de arranque:
 
 - Arranque producción: Se arranca en el puerto 3000.
 
@@ -81,6 +81,7 @@ Una vez arrancado el servidor ya podemos comenzar a trabajar con el API. A conti
 Índice del API. Mismo contenido README en html.
 
 ### Registro de usuario
+
 Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones del API.
 
 - URL: /apiv1/registro
