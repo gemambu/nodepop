@@ -401,8 +401,9 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 	}
 	```
 
-## Visualizacion de imagenes
+## Visualización de imagenes
 Basta con acceder a http://localhost:3000/images/anuncios/*nombrefichero*.png
+
 
 
 # Insertar anuncio

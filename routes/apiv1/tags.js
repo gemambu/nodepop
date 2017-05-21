@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
         var errorToken = customMessages.getMessage(req.query.lang, 'AUTH_TOKEN_NOT_VALID');
         res.status(401).json({success: false, result: errorToken});    
     } else {
-        // check if token is correct
+        // comprobamos si el token es correcto
         authenticate.verify(token, req, res, completeSearch);
     }
 });
@@ -38,7 +38,7 @@ function completeSearch(req, res){
             for(var i = 0; i < result.length; i++){                
                 var node = result[i].tags;
                 node.forEach(function(currentValue) {
-                    if(tagsInDB.indexOf(currentValue) === -1){ // add only if the tag is not in the array
+                    if(tagsInDB.indexOf(currentValue) === -1){ // añadimos sólo si el tag ya no está incluido en el array
                         tagsInDB.push(currentValue);
                     }
                 });

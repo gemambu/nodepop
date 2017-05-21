@@ -100,9 +100,6 @@ function completeSearch(req, res){
     );    
 }
 
-
-
-
 // POST: /apiv1/anuncios/nuevo
 router.post('/nuevo', (req, res, next) => {
     console.log(req.body);
