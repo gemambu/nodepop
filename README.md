@@ -311,7 +311,9 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 				
 		- Ordenación de la lista por un campo. Opciones: *nombre, precio, venta, foto, tags* (también se pueden incluir los nombres en inglés: *name, price, sale, photo, tags*): ```sort=[nombre]```
 			
-			Ejemplo: *sort=precio*	
+			Ejemplo: *sort=precio*
+
+			Ejemplo: *sort=name*	
 				
 		- Mostrar el total de anuncios en base de datos: ```includeTotal=[true/false]```
 			
