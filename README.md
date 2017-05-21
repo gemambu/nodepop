@@ -309,7 +309,7 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 			
 			Ejemplo: *limit=5*	
 				
-		- Ordenación de la lista por un campo. Opciones: *nombre, precio, venta, photo, tags*: ```sort=[nombre]```
+		- Ordenación de la lista por un campo. Opciones: *nombre, precio, venta, foto, tags* (también se pueden incluir los nombres en inglés: *name, price, sale, photo, tags*): ```sort=[nombre]```
 			
 			Ejemplo: *sort=precio*	
 				

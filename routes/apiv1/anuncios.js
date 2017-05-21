@@ -26,7 +26,7 @@ function completeSearch(req, res){
     const sale = req.query.venta;
     const price = req.query.precio;
     const tag = req.query.tag;
-    const sort = req.query.sort;
+    const sort = validate.getSortFields(req.query.sort);
     const includeTotal = req.query.includeTotal ? req.query.includeTotal : 'true';
     const fields = (req.query.fields !== undefined) ? req.query.fields : {_id: 0, __v: 0};
     const limit = (req.query.limit !== undefined) ? parseInt(req.query.limit) : 0;
@@ -99,6 +99,8 @@ function completeSearch(req, res){
         })
     );    
 }
+
+
 
 
 // POST: /apiv1/anuncios/nuevo
