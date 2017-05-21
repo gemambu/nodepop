@@ -1,6 +1,9 @@
 # Nodepop
+## Práctica JS/Node.js/MongoDB Boot V
 
-## API para aplicación Nodepop. Práctica JS/Node.js/MongoDB Boot V.
+
+# API para aplicación Nodepop. 
+
 
 API para la venta de artículos de segunda mano.
 
@@ -10,7 +13,8 @@ En la versión 1 de esta API los usuarios deben estar registrados para poder hac
 
 Base de datos utilizada: **MONGODB**. Se ha utilizado el módulo **mongoose** para la gestión de los modelos de base de datos.
 
-## Cómo instalar
+
+# Cómo instalar
 
 Descargar el proyecto:
 
@@ -49,7 +53,8 @@ contrasela: 1234
 
 ```
 
-## Cómo arrancar el servicio
+
+# Cómo arrancar el servicio
 
 El API tiene dos posibles modos de arranque:
 
@@ -62,7 +67,8 @@ El API tiene dos posibles modos de arranque:
 
 	Ejecutar: ```npm run dev```
 
-## Cómo utilizar el API:
+
+# Cómo utilizar el API:
 
 - Iodocs: Se ejecuta en el puerto 4000. Es necesario tener instalado redis (puerto 6379). Para utilizar esta herramienta, el servidor debe estar arrancado en modo debug (puerto 5000).
 
@@ -72,15 +78,20 @@ El API tiene dos posibles modos de arranque:
 
 - Postman: Aplicación postman, se puede utilizar con el servidor en modo debug o modo producción.
 
-## Rutas
+
+
+# Rutas
+
 
 Una vez arrancado el servidor ya podemos comenzar a trabajar con el API. A continuación se definen las operaciones disponibles.
 
-### Index
+
+# Index
 
 Índice del API. Mismo contenido README en html.
 
-### Registro de usuario
+
+# Registro de usuario
 
 Con este método se registra un nuevo usuario en la base de datos para poder acceder al resto de operaciones del API.
 
@@ -125,7 +136,8 @@ Con este método se registra un nuevo usuario en la base de datos para poder acc
 	}
 	```
 
-### Autenticación
+
+# Autenticación
 
 Un usuario registrado debe autenticarse en el servicio para obtener el token de seguridad que le permite acceder a todas las funcionalidades disponibles. Sin esta autenticación, el API no devolverá información.
 
@@ -196,7 +208,8 @@ Un usuario registrado debe autenticarse en el servicio para obtener el token de 
 	```
 
 
-### Obtener tags
+
+# Obtener tags
 
 Esta operación permite obtener los tags existentes en base de datos.
 
@@ -259,7 +272,9 @@ Esta operación permite obtener los tags existentes en base de datos.
 	}
 	```
 
-### Obtener anuncios
+
+
+# Obtener anuncios
 
 Esta operación permite obtener los anuncios publicados en nodepop. Se pueden aplicar diferentes filtros, paginados y ordenación.
 
@@ -386,10 +401,11 @@ Esta operación permite obtener los anuncios publicados en nodepop. Se pueden ap
 	}
 	```
 
-##### Visualizacion de imagenes
+###Visualizacion de imagenes
 Basta con acceder a http://localhost:3000/images/anuncios/*nombrefichero*.png
 
-### Insertar anuncio
+
+# Insertar anuncio
 
 Esta operación permite insertar un anuncio en nodepop. 
 
