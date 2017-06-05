@@ -511,3 +511,16 @@ Esta operación permite insertar un anuncio en nodepop.
 	  "error": "Alguno de los parámetros introducidos no es válido"
 	}
 	```
+
+## Práctica Devops Boot V
+
+URL donde está desplegado el servidor nodepop: *gnodepop.styleapps.es*
+
+Además he creado mi página estática en *gemambu.styleapps.es*
+
+He optado por esta solución (crear dos subdominios) porque decidí reutilizar un dominio que ya tenía comprado y utilizado para otros proyectos personales, espero que no reste puntos :-)
+
+Ambos subdominios apuntan a la misma IP estática (*34.226.71.88*), tal y como vimos en las clases del módulo.
+
+
+
