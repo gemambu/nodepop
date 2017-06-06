@@ -50,12 +50,20 @@ app.use((err, req, res, next) => {
     res.json({success: false, error: err.message});
     return;
   }
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.render('error');
+  if(err.status == 404){
+    // load custom error page
+    res.render('custom_404', {title: '404: File Not Found'});
+  } else {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.render('error');
+  }
+
+  
 });
 
 /**
