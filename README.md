@@ -521,7 +521,7 @@ Además he creado mi página estática en *gemambu.styleapps.es*
 
 He optado por esta solución (crear dos subdominios) porque decidí reutilizar un dominio que ya tenía comprado y utilizado para otros proyectos personales, espero que no reste puntos :-)
 
-Ambos subdominios apuntan a la misma IP estática (*34.226.71.88*), tal y como vimos durante el módulo. La plataforma de hoisting utilizada es AWS, tal y como vimos en el módulo. En esta plataforma se ha instalado pm2, nginx y se ha modificado el puerto SSH.
+Ambos subdominios apuntan a la misma IP estática (*34.226.71.88*), tal y como vimos durante el módulo. La plataforma de hosting utilizada es AWS, tal y como vimos en el módulo. En esta plataforma se ha instalado pm2, nginx y se ha modificado el puerto SSH.
 
 ### Página estática personal
 
