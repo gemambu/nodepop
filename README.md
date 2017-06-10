@@ -47,9 +47,9 @@ Cerramos base de datos
 Con esta instalación se añaden varios anuncios para su visualización y un usuario ya registrado para poder acceder a toda la información:
 
 ```
-nombre: Vader
-email: darthvader@sith.com
-contrasela: 1234
+nombre: nodepop
+email: nodepop@kcv.com
+contrasela: nodepopkcv
 
 ```
 
