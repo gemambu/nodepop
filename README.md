@@ -515,30 +515,33 @@ Esta operación permite insertar un anuncio en nodepop.
 ## Práctica Devops Boot V
 
 
-URL donde está desplegado el servidor nodepop: *gnodepop.styleapps.es*
+Servidor nodepop desplegado en: **gnodepop.styleapps.es**
 
-Además he creado mi página estática en *gemambu.styleapps.es*
+Página estática: desplegada en **gemambu.styleapps.es**
 
 He optado por esta solución (crear dos subdominios) porque decidí reutilizar un dominio que ya tenía comprado y utilizado para otros proyectos personales, espero que no reste puntos :-)
 
-Ambos subdominios apuntan a la misma IP estática (*34.226.71.88*), tal y como vimos durante el módulo. La plataforma de hosting utilizada es AWS, tal y como vimos en el módulo. En esta plataforma se ha instalado pm2, nginx y se ha modificado el puerto SSH.
+Ambos subdominios apuntan a la misma IP estática (**34.226.71.88**), tal y como vimos durante el módulo. 
+
+La plataforma de hosting utilizada es AWS. En esta plataforma he instalado pm2, nginx y se ha modificado el puerto SSH.
 
 ### Página estática personal
 
-Mi página estática está alojada en la siguiente URL: **gemambu.styleapps.es**.
+**gemambu.styleapps.es**.
 
-La página tiene certificado SSL y muestra el contenido estático personalizado. La plantilla es de https://startbootstrap.com.
+La página tiene certificado SSL y muestra el contenido estático personalizado. La plantilla original es de https://startbootstrap.com.
 
 Si se intenta acceder a un path diferente, se mostrará el error correspondiente.
 
-Si se accede a través de la IP estática, automáticamente se redirige a la página estática.
+Si se accede a través de la IP estática, automáticamente se redirige a la página estática, así como si se intenta acceder por http.
 
 
 ### Nodepop
 
-El servidor Nodepop está desplegado en: **gnodepop.styleapps.es**.
+**gnodepop.styleapps.es**.
 
-También está certificado con SSL y si se accede vía URL se muestra el contenido de este mismo fichero *README.md*. Este fichero se sirve gracias a la librería StrapDwon (http://strapdownjs.com/)
+También está certificado con SSL y si se accede vía URL se muestra el contenido de este mismo fichero *README.md*. 
+Este fichero se sirve gracias a la librería StrapDwon (http://strapdownjs.com/).
 
 Al igual que la página estática, si se accede a un path que no existe se retorna el error correspondiente.
 
@@ -569,11 +572,8 @@ Para acceder a los anuncios alojados en el servidor se puede utilizar *Postman*.
 
 
 
-Además si se desean revisar las imágenes alojadas, se puede comprobar con la siguiente ruta:
+Por último, si se desean revisar las imágenes alojadas, se puede comprobar con la siguiente ruta:
 
 ```https://gnodepop.styleapps.es/images/estrella.png```
-
-
-
 
 
