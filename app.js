@@ -32,7 +32,7 @@ app.use('/apiv1/usuarios/authenticate', require('./routes/apiv1/auth'));
 app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
 app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 app.use('/images',
-  express.static(path.join(__dirname, '/public/images')));
+  express.static('/public/images'));
 
 
 // catch 404 and forward to error handler
