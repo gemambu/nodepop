@@ -128,7 +128,7 @@ function checkFields(req, res){
         var errorMessage = customMessages.getMessage(req.query.lang, 'PARAMETER_NOT_VALID');
         return res.status(401).json({success: false, error: errorMessage});
     } else{
-        req.body.photo = '/images/anuncios/' + req.body.photo;
+        req.body.photo = '/images/' + req.body.photo;
         req.body.tags = validate.removeSpaces(req.body.tags);
 
         // creamos un objecto de tipo Usuario con la peticion mandada
